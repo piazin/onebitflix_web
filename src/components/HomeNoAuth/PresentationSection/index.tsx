@@ -5,9 +5,12 @@ import Link from 'next/link';
 export const PresentationSection = () => {
   return (
     <>
-      <Container>
+      <Container className="py-4">
         <Row>
-          <Col md>
+          <Col
+            md
+            className="d-flex flex-column justify-content-center align-items-start"
+          >
             <p className={styles.subTitle}>Acesso ILIMITADO</p>
             <p className={styles.title}>
               Tenha acesso aos melhores <br /> tutorias de Programação
@@ -32,6 +35,15 @@ export const PresentationSection = () => {
               src="/homeNoAuth/imgPresentation.png"
               alt="img presentation.png"
               className={styles.imgPresentation}
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col className="d-flex justify-content-center pt-5">
+            <img
+              src="/homeNoAuth/iconArrowDown.svg"
+              alt="arrow down"
+              className={styles.arrowDown}
             />
           </Col>
         </Row>

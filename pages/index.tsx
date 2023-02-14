@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import styles from '../styles/HomeNoAuth.module.scss';
 import HeaderNoAuth from '../src/components/HomeNoAuth/HeaderNotAuth';
+import { PresentationSection } from '../src/components/HomeNoAuth/PresentationSection';
 
 const HomeNoAuth = () => {
   return (
@@ -16,6 +17,7 @@ const HomeNoAuth = () => {
       </Head>
       <main>
         <HeaderNoAuth />
+        <PresentationSection />
       </main>
     </>
   );

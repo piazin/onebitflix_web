@@ -20,16 +20,15 @@ export type CourseType = {
 
 export const courseService = {
   getNewestCourses: async () => {
+
     try {
-      const res = await api.get('/courses/newest');
-      return res.data;
+      return await api.get('/courses/newest');
     } catch (err) {
       const error = err as Error | AxiosError;
       if (axios.isAxiosError(error)) {
         console.log(error.response?.data.message);
         return error.response;
       }
-
       console.error(error);
     }
   },

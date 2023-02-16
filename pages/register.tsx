@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { HeaderGeneric } from '../src/components/Common/HeaderGeneric';
 import styles from '../styles/registerLogin.module.scss';
@@ -12,6 +12,12 @@ export default function register() {
   const router = useRouter();
   const [toastIsOpen, setToastIsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
+
+  useEffect(() => {
+    if (sessionStorage.getItem('token')) {
+      router.push('/home');
+    }
+  }, []);
 
   const handleRegister = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

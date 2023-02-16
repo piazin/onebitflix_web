@@ -14,8 +14,13 @@ export default function Login() {
   const [toastIsOpen, setToastIsOpen] = useState(false);
   const [toastMessage, setToastMessage] = useState('');
 
-  const successfullyRegistered = router.query.registred;
+  useEffect(() => {
+    if (sessionStorage.getItem('token')) {
+      router.push('/home');
+    }
+  }, []);
 
+  const successfullyRegistered = router.query.registred;  
   useEffect(() => {
     if (successfullyRegistered === 'true') {
       setToastColor('bg-success');

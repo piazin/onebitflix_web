@@ -20,7 +20,6 @@ export type CourseType = {
 
 export const courseService = {
   getNewestCourses: async () => {
-
     try {
       return await api.get('/courses/newest');
     } catch (err) {
@@ -31,5 +30,22 @@ export const courseService = {
       }
       console.error(error);
     }
+  },
+
+  getFeaturedCourses: async () => {
+    const token = sessionStorage.getItem('token');
+
+    const res = await api
+      .get('/courses/featured', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => {
+        console.error(err.response.data.message);
+        return err.response;
+      });
+
+    return res;
   },
 };

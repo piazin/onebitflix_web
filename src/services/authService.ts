@@ -9,6 +9,11 @@ interface RegisterParams {
   password: string;
 }
 
+interface LoginParams {
+  email: string;
+  password: string;
+}
+
 export const authService = {
   register: async (params: RegisterParams) => {
     const response = await api.post('/auth/register', params).catch((err) => {
@@ -20,5 +25,21 @@ export const authService = {
     });
 
     return response;
+  },
+
+  login: async (params: LoginParams) => {
+    const res = await api.post('/auth/login', params).catch((err) => {
+      if (err.response.status === 400 || 401) {
+        return err.response;
+      }
+
+      return err;
+    });
+
+    if (res.status === 200) {
+      sessionStorage.setItem('token', res.data.token);
+    }
+
+    return res;
   },
 };

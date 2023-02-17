@@ -37,3 +37,40 @@
   margin: 0;
   padding: 0;
 }
+
+@media (max-width: 767px) {
+  .title {
+    width: 95%;
+    font-size: 30px;
+    line-height: 40px;
+  }
+
+  .description {
+    width: 95%;
+    font-size: 18px;
+    margin-top: 25px;
+    height: 110px;
+  }
+}
+
+@media (max-width: 400px) {
+  .title {
+    font-size: 20px;
+    line-height: 25px;
+  }
+
+  .description {
+    font-size: 14px;
+    margin-top: 25px;
+    height: 90px;
+  }
+
+  .button {
+    font-size: 12px;
+    padding: 10px 20px;
+  }
+
+  .btnImg {
+    width: 8px;
+  }
+}

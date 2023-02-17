@@ -25,10 +25,8 @@ export const courseService = {
     } catch (err) {
       const error = err as Error | AxiosError;
       if (axios.isAxiosError(error)) {
-        console.log(error.response?.data.message);
         return error.response;
       }
-      console.error(error);
     }
   },
 
@@ -42,7 +40,58 @@ export const courseService = {
         },
       })
       .catch((err) => {
-        console.error(err.response.data.message);
+        return err.response;
+      });
+
+    return res;
+  },
+
+  addToFav: async (courseId: number | string) => {
+    const token = sessionStorage.getItem('token');
+
+    const res = await api
+      .post(
+        '/favorites',
+        { courseId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .catch((err) => {
+        return err.response;
+      });
+
+    return res;
+  },
+
+  removeFav: async (courseId: number | string) => {
+    const token = sessionStorage.getItem('token');
+
+    const res = await api
+      .delete(`/favorites${courseId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => {
+        return err.response;
+      });
+
+    return res;
+  },
+
+  getFavCourse: async () => {
+    const token = sessionStorage.getItem('token');
+
+    const res = await api
+      .get('/favorites', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .catch((err) => {
         return err.response;
       });
 

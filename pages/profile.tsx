@@ -3,14 +3,15 @@ import { useState } from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 import { Footer } from '../src/components/Common/Footer';
 import { HeaderAuth } from '../src/components/Common/HeaderAuth';
+import { PasswordForm } from '../src/components/Profile/Password';
 import { UserForm } from '../src/components/Profile/User';
 import styles from '../styles/profile.module.scss';
 
 export default function Profile() {
-  const [stateOfWindows, setStateOfWindows] = useState('user');
+  const [stateOfWindows, setStateOfWindows] = useState('userForm');
 
-  const switchToUserWindow = () => setStateOfWindows('user');
-  const switchToPasswordWindow = () => setStateOfWindows('password');
+  const switchToUserWindow = () => setStateOfWindows('userForm');
+  const switchToPasswordWindow = () => setStateOfWindows('passwordForm');
 
   return (
     <>
@@ -28,19 +29,26 @@ export default function Profile() {
             <Col md={4} className={styles.btnColumn}>
               <Button
                 className={styles.renderFormBtn}
+                style={{
+                  color: stateOfWindows === 'userForm' ? '#FF0044' : 'white',
+                }}
                 onClick={switchToUserWindow}
               >
                 DADOS PESSOAIS
               </Button>
               <Button
                 className={styles.renderFormBtn}
+                style={{
+                  color:
+                    stateOfWindows === 'passwordForm' ? '#FF0044' : 'white',
+                }}
                 onClick={switchToPasswordWindow}
               >
                 SENHA
               </Button>
             </Col>
             <Col md>
-              {stateOfWindows === 'user' ? <UserForm /> : <p>Senha</p>}
+              {stateOfWindows === 'userForm' ? <UserForm /> : <PasswordForm />}
             </Col>
           </Row>
         </Container>

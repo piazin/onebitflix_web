@@ -54,7 +54,7 @@ export const profileService = {
         },
       })
       .catch((err) => {
-        if (err.response.status === 400 || 401) {
+        if (err.response.status === 400 || err.response.status === 401) {
           return err.response;
         }
 

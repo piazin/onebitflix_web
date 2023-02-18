@@ -2,12 +2,13 @@ import useSWR from 'swr';
 import { courseService } from '../../../services/courseService';
 import { SlideComponent } from '../../Common/SlideComponent';
 import styles from '../../../../styles/slideCategory.module.scss';
+import { PageSpinner } from '../../Common/Spinner';
 
 export const NewestCategory = () => {
   const { data, error } = useSWR('/newest', courseService.getNewestCourses);
 
   if (error) return error;
-  if (!data) return <p>Loading...</p>;
+  if (!data) return <PageSpinner />;
 
   return (
     <>

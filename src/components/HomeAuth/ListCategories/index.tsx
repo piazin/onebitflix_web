@@ -3,6 +3,7 @@ import {
   categoriesService,
   CategoryType,
 } from '../../../services/categoriesService';
+import { PageSpinner } from '../../Common/Spinner';
 import { ListCategoriesSlide } from '../ListCategoriesSlide';
 
 export const ListCategories = () => {
@@ -12,7 +13,7 @@ export const ListCategories = () => {
   );
 
   if (error) return error;
-  if (!data) return <p>Loading...</p>;
+  if (!data) return <PageSpinner />;
 
   return (
     <>

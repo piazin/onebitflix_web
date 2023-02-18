@@ -97,4 +97,17 @@ export const courseService = {
 
     return res;
   },
+  getSearch: async (name: string) => {
+    const token = sessionStorage.getItem('token');
+
+    const res = await api
+      .get(`/courses/search?name=${name}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        }
+      })
+      .catch((err) => err.response);
+
+    return res;
+  },
 };

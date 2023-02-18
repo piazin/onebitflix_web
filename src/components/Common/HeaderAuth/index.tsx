@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { Container, Form, Input } from 'reactstrap';
 import styles from './styles.module.scss';
 import Modal from 'react-modal';
@@ -12,6 +12,19 @@ export const HeaderAuth = () => {
   const router = useRouter();
   const [modalIsOpen, setIsModalIsOpen] = useState(false);
   const [initials, setInitials] = useState('');
+  const [searchName, setSearchName] = useState('');
+
+  const handleSearch = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    router.push(`/search?name=${searchName}`);
+    setSearchName('');
+  };
+
+  const handleSearchClick = () => {
+    router.push(`/search?name=${searchName}`);
+    setSearchName('');
+  };
 
   useEffect(() => {
     profileService.fetchCurrent().then((user) => {
@@ -46,17 +59,22 @@ export const HeaderAuth = () => {
           />
         </Link>
         <div className="d-flex align-items-center">
-          <Form>
+          <Form onSubmit={handleSearch}>
             <Input
               name="search"
               type="search"
               placeholder="pesquisar"
+              value={searchName}
+              onChange={(e) =>
+                setSearchName(e.currentTarget.value.toLowerCase())
+              }
               className={styles.input}
             />
           </Form>
           <img
             src="/homeAuth/iconSearch.svg"
             alt="lupa header"
+            onClick={handleSearchClick}
             className={styles.searchImg}
           />
           <p className={styles.userProfile} onClick={handleOpenModal}>

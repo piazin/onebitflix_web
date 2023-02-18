@@ -14,7 +14,6 @@ export const PasswordForm = () => {
 
   useEffect(() => {
     profileService.fetchCurrent().then((password) => {
-      console.log(password);
       setCurrentPassword(password.currentPassword);
       setNewPassword(password.newPassword);
     });
@@ -46,7 +45,7 @@ export const PasswordForm = () => {
       newPassword,
     });
 
-    if (res.status === 204) {
+    if (res === 204) {
       setToastIsOpen(true);
       setToastMessage('Senha alterada com sucesso!');
       setColor('bg-success');
@@ -55,13 +54,6 @@ export const PasswordForm = () => {
       setCurrentPassword('');
       setNewPassword('');
       setConfirmNewPassword('');
-    }
-
-    if (currentPassword === newPassword) {
-      setToastIsOpen(true);
-      setToastMessage('Senha atual incorreta!');
-      setColor('bg-danger');
-      setTimeout(() => setToastIsOpen(false), 1000 * 3);
     }
   };
 

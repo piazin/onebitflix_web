@@ -22,7 +22,6 @@ export default function Course() {
 
     const res = await courseService.getEpisodes(id);
 
-    console.info(res);
     if (res.status === 200) {
       setCourse(res.data);
       setLiked(res.data.liked);
@@ -137,7 +136,7 @@ export default function Course() {
             </p>
           ) : (
             course.episodes?.map((episode) => (
-              <EpisodeList episode={episode} key={episode.id} />
+              <EpisodeList episode={episode} key={episode.id} course={course} />
             ))
           )}
         </Container>

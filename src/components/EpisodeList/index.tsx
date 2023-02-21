@@ -1,11 +1,15 @@
-import { EpisodeType } from '../../services/courseService';
+import { useRouter } from 'next/router';
+import { CourseType, EpisodeType } from '../../services/courseService';
 import styles from './styles.module.scss';
 
 interface props {
   episode: EpisodeType;
+  course: CourseType;
 }
 
-export const EpisodeList = ({ episode }: props) => {
+export const EpisodeList = ({ episode, course }: props) => {
+  const router = useRouter();
+
   const handleSecondsToMin = (totalSeconds: number) => {
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
@@ -17,9 +21,13 @@ export const EpisodeList = ({ episode }: props) => {
     return `${toString(minutes)}:${toString(seconds)}`;
   };
 
+  const handleEpisodePlayer = () => {
+    router.push(`/course/episode/${episode.order - 1}?courseid=${course.id}`);
+  };
+
   return (
     <>
-      <div className={styles.episodeCard}>
+      <div className={styles.episodeCard} onClick={handleEpisodePlayer}>
         <div className={styles.episodeOrderTime}>
           <p className={styles.episodeOrder}>Episódio N* - {episode.order} </p>
           <p className={styles.episodeTime}>
@@ -28,18 +36,7 @@ export const EpisodeList = ({ episode }: props) => {
         </div>
         <div className={styles.episodeTitleDescription}>
           <p className={styles.episodeTitle}> {episode.name}</p>
-          <p className={styles.episodeDescription}>
-            {episode.synopsis}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis
-            sit asperiores accusamus itaque, obcaecati nesciunt repudiandae
-            similique ratione quidem error doloremque, fugiat, veritatis quae
-            aliquid perspiciatis ut enim. Ducimus non molestias dignissimos
-            laborum quis, ipsam sunt ab suscipit aperiam voluptatibus eum
-            perferendis nam harum aliquam vero explicabo rem. Excepturi, omnis!
-            <br />
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Possimus,
-            reiciendis?
-          </p>
+          <p className={styles.episodeDescription}>{episode.synopsis}</p>
         </div>
       </div>
     </>

@@ -1,14 +1,29 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { Button, Col, Container, Row } from 'reactstrap';
 import { Footer } from '../src/components/Common/Footer';
 import { HeaderAuth } from '../src/components/Common/HeaderAuth';
+import { PageSpinner } from '../src/components/Common/Spinner';
 import { PasswordForm } from '../src/components/Profile/Password';
 import { UserForm } from '../src/components/Profile/User';
 import styles from '../styles/profile.module.scss';
 
 export default function Profile() {
   const [stateOfWindows, setStateOfWindows] = useState('userForm');
+
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('token')) {
+      router.push('/login');
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) return <PageSpinner />;
 
   const switchToUserWindow = () => setStateOfWindows('userForm');
   const switchToPasswordWindow = () => setStateOfWindows('passwordForm');

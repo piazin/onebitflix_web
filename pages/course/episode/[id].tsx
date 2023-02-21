@@ -16,6 +16,7 @@ export default function EpisodePlayer() {
   const episodeOrder = parseFloat(router.query.id?.toString() || '');
   const episodeId = parseFloat(router.query.episodeid?.toString() || '');
   const courseId = router.query.courseid?.toString() || '';
+  const [loading, setLoading] = useState(true);
 
   const [getEpisodeTime, setGetEpisodeTime] = useState(0);
   const [episodeTime, setEpisodeTime] = useState(0);
@@ -81,6 +82,14 @@ export default function EpisodePlayer() {
     getCourse();
   }, [courseId]);
 
+  useEffect(() => {
+    if (!sessionStorage.getItem('token')) {
+      router.push('/login');
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
   if (course === undefined) return <PageSpinner />;
   //@ts-ignore
   if (episodeOrder + 1 < course?.episodes?.length) {
@@ -92,6 +101,8 @@ export default function EpisodePlayer() {
       handleNextEpisode();
     }
   }
+
+  if (loading) return <PageSpinner />;
   return (
     <>
       <Head>

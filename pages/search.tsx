@@ -13,6 +13,7 @@ export default function Search() {
   const router = useRouter();
   const searchName = router.query.name;
   const [searchResult, setSearchResult] = useState<CourseType[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const searchCourses = async () => {
     if (typeof searchName === 'string') {
@@ -24,6 +25,15 @@ export default function Search() {
   useEffect(() => {
     searchCourses();
   }, [searchName]);
+  useEffect(() => {
+    if (!sessionStorage.getItem('token')) {
+      router.push('/login');
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
+  if (loading) return <PageSpinner />;
 
   if (!searchResult) return <PageSpinner />;
 

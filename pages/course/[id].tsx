@@ -15,6 +15,15 @@ export default function Course() {
   const [course, setCourse] = useState<CourseType>();
   const [liked, setLiked] = useState(false);
   const [favorited, setFavorited] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!sessionStorage.getItem('token')) {
+      router.push('/login');
+    } else {
+      setLoading(false);
+    }
+  }, []);
 
   const courseName = `${course?.name}`;
   const getCourses = async () => {
@@ -56,6 +65,8 @@ export default function Course() {
   };
 
   if (course === undefined) return <PageSpinner />;
+
+  if (loading) return <PageSpinner />;
 
   return (
     <>

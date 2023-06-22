@@ -33,11 +33,7 @@ const HomeNoAuth = ({ course }: IndexPageProps) => {
         />
       </Head>
       <main>
-        <div
-          className={styles.sectionBackground}
-          data-aos="fade-zoom-in"
-          data-aos-duration="1600"
-        >
+        <div className={styles.sectionBackground} data-aos="fade-zoom-in" data-aos-duration="1600">
           <HeaderNoAuth />
           <PresentationSection />
         </div>
@@ -54,13 +50,17 @@ const HomeNoAuth = ({ course }: IndexPageProps) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await courseService.getNewestCourses();
-  return {
-    props: {
-      course: response!.data,
-    },
-    revalidate: 3600 * 24,
-  };
+  try {
+    const response = await courseService.getNewestCourses();
+    return {
+      props: {
+        course: response!.data,
+      },
+      revalidate: 3600 * 24,
+    };
+  } catch (err) {
+    return { notFound: true };
+  }
 };
 
 export default HomeNoAuth;

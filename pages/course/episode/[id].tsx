@@ -64,17 +64,13 @@ export default function EpisodePlayer() {
 
   const handleLastEpisode = () => {
     router.push(
-      `/course/episode/${episodeOrder - 1}?courseid=${course?.id}&episodeid=${
-        episodeId - 1
-      }`
+      `/course/episode/${episodeOrder - 1}?courseid=${course?.id}&episodeid=${episodeId - 1}`
     );
   };
 
   const handleNextEpisode = () => {
     router.push(
-      `/course/episode/${episodeOrder + 1}?courseid=${course?.id}&episodeid=${
-        episodeId + 1
-      }`
+      `/course/episode/${episodeOrder + 1}?courseid=${course?.id}&episodeid=${episodeId + 1}`
     );
   };
 
@@ -133,20 +129,16 @@ export default function EpisodePlayer() {
             {typeof window === 'undefined' ? null : (
               <ReactPlayer
                 className={styles.player}
-                url={`${
-                  process.env.NEXT_PUBLIC_BASEURL
-                }/episodes/stream?videoUrl=${
+                url={`${process.env.NEXT_PUBLIC_BASEURL}/episodes/stream?videoUrl=${
                   //@ts-ignore
                   course.episodes[episodeOrder].videoUrl
                 }&token=${sessionStorage.getItem('token')}`}
                 controls
                 playing={true}
-                volume={0.1}
+                volume={0.6}
                 ref={playerRef}
                 onStart={handlePlayerTime}
-                onProgress={(progress) =>
-                  setEpisodeTime(progress.playedSeconds)
-                }
+                onProgress={(progress) => setEpisodeTime(progress.playedSeconds)}
               />
             )}
             <div className={styles.episodeButtonDiv}>
@@ -163,9 +155,7 @@ export default function EpisodePlayer() {
               </Button>
               <Button
                 className={styles.episodeButton}
-                disabled={
-                  episodeOrder + 1 === course.episodes?.length ? true : false
-                }
+                disabled={episodeOrder + 1 === course.episodes?.length ? true : false}
                 onClick={handleNextEpisode}
               >
                 <img
